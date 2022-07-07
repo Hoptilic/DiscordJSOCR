@@ -1,7 +1,6 @@
 // variables
 require("dotenv").config()
 const { Client, Intents } = require('discord.js');
-const Tesseract = require("tesseract.js");
 const ocrSpaceApi = require('ocr-space-api-alt2');
 const { MessageEmbed } = require('discord.js');
 const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
@@ -13,6 +12,7 @@ var regexn = /(n|N|m|M|j|J)(i|I|1|L|l|!)(g|G)\w+/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
 var reportchannel = '994546580600397854';
 var sentChannel = '';
+let apikeys = ['K81964690488957', 'K87892637488957'];
 
 bot.on('ready', () => {
   console.log(`Logged in as ${bot.user.tag}!`);
@@ -28,14 +28,19 @@ bot.on("message", (msg) => {
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
       sentChannel = msg.channel;
+      function randomChoice(arr) {
+        return arr[Math.floor(arr.length * Math.random())];
+      } 
       function getExt(filepath){
         return filepath.split("?")[0].split("#")[0].split('.').pop();
       }
       if (["png", "jpg", "jpeg", "gif"].indexOf(getExt(attachment.proxyURL)) !== -1){
         console.log(getExt(attachment.proxyURL));
         var ImageURL = attachment.proxyURL;
+        finalapikey = randomChoice(apikeys);
+        console.log('used api key: ' + randomChoice(apikeys));
         const options =  { 
-          apiKey: 'K81964690488957',
+          apiKey: finalapikey,
           verbose: false,
           url: ImageURL,
           detectOrientation: true,
@@ -68,10 +73,10 @@ bot.on("message", (msg) => {
           } catch(err) {
             console.log('invalid input');
           }
-
         }
         async function sendmessage(){
           if (checkProfanity(await getText()) == true) {
+            msg.delete();
             const exampleEmbed = new MessageEmbed()
             .setColor('#0099ff')
             .setTitle('Image Filtering')
@@ -88,9 +93,7 @@ bot.on("message", (msg) => {
             )
             .setImage(attachment.proxyURL)
             .setTimestamp()
-            // console.log(text);
             bot.channels.cache.get(reportchannel).send({ embeds: [exampleEmbed] });  
-            msg.delete();
           }
         }
         // console.log(text);
