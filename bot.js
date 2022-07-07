@@ -6,6 +6,8 @@ const { MessageEmbed } = require('discord.js');
 const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 var regexn = /(n|N|m|M|j|J)(i|I|1|L|l)(g|G)\w+/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
+var reportchannel = '994546580600397854';
+var sentChannel = '';
 
 
 bot.on('ready', () => {
@@ -22,6 +24,7 @@ bot.on("message", (msg) => {
 bot.on("message", (msg) => {
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
+      sentChannel = msg.channel;
       function getExt(filepath){
         return filepath.split("?")[0].split("#")[0].split('.').pop();
       }
@@ -63,15 +66,15 @@ bot.on("message", (msg) => {
                 { name: 'Processing Time:', value: totaltime + ' Seconds', inline: true},
                 { name: 'ㅤ', value: 'ㅤ', inline: false},
                 { name: 'Image Extension:', value: '.' + getExt(attachment.proxyURL), inline: true},
+                { name: 'Sent From:', value: '<' + '#' + sentChannel + '>', inline: true},
               )
               .setImage(attachment.proxyURL)
               .setTimestamp()
               console.log(text);
-              msg.reply({ embeds: [exampleEmbed] });  
+              bot.channels.cache.get(reportchannel).send({ embeds: [exampleEmbed] });  
 
           }
           console.log(text);
-          msg.reply('<' + '@' + msg.author.id + '>' + ' your content has been deleted and flagged for containing content against our rules.');
           msg.delete();
         });
       };
