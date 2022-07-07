@@ -30,10 +30,8 @@ bot.on("message", (msg) => {
       }
       if (["png", "jpg", "jpeg"].indexOf(getExt(attachment.proxyURL)) !== -1){
         console.log(getExt(attachment.proxyURL));
-              // Getting the Image URL
         var ImageURL = attachment.proxyURL;
         var start = Date.now();
-        // Running the image through Tesseract
         Tesseract.recognize(
           ImageURL,
           "eng",
@@ -47,7 +45,7 @@ bot.on("message", (msg) => {
           let textInput = input.split(" ");
           var checkNWord = textInput.some(e => regexn.test(e));
           var checkFWord = textInput.some(el => regexf.test(el));
-          if (checkNWord | checkFWord == true){
+          if (checkNWord || checkFWord == true){
             return true;
           } else {
             return false;
