@@ -10,7 +10,7 @@ let totaltime = 0;
 let profanity = '';
 var regexn = /(n|N|m|M|j|J)(i|I|1|L|l|!)(g|G)\w+/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
-var reportchannel = '994546580600397854';
+var reportchannel = '994648347308732436';
 var sentChannel = '';
 let apikeys = ['K81964690488957', 'K87892637488957'];
 
