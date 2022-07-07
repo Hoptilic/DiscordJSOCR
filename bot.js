@@ -1,5 +1,4 @@
 require("dotenv").config()
-require("discord-reply"); // Initializing Discord-Reply
 const { Client, Intents } = require('discord.js');
 const Tesseract = require("tesseract.js"); // Initializing Tesseract, this module is essential for OCR
 const { MessageEmbed } = require('discord.js');
