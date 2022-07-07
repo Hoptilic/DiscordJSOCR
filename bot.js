@@ -19,21 +19,22 @@ bot.on('ready', () => {
 });
 
 bot.on("message", (msg) => {
+  if(msg.author.bot) return;
   if (msg.content == '!status'){
     msg.reply('Functioning Properly');
   }
 });
 
 bot.on("message", (msg) => {
+  if(msg.author.bot) return;
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
-      sentChannel = msg.channel;
       function randomChoice(arr) {
         return arr[Math.floor(arr.length * Math.random())];
-      } 
+      };
       function getExt(filepath){
         return filepath.split("?")[0].split("#")[0].split('.').pop();
-      }
+      };
       if (["png", "jpg", "jpeg", "gif"].indexOf(getExt(attachment.proxyURL)) !== -1){
         console.log(getExt(attachment.proxyURL));
         var ImageURL = attachment.proxyURL;
@@ -45,7 +46,7 @@ bot.on("message", (msg) => {
           url: ImageURL,
           detectOrientation: true,
           scale: true
-        }
+        };
         const getText = async () => {
           try {
             start = Date.now();
@@ -58,7 +59,7 @@ bot.on("message", (msg) => {
           } catch (error) {
             console.error(error)
           }
-        }
+        };
         function checkProfanity(input){
           try{
             console.log(input);
@@ -73,34 +74,43 @@ bot.on("message", (msg) => {
           } catch(err) {
             console.log('invalid input');
           }
-        }
+        };
         async function sendmessage(){
           if (checkProfanity(await getText()) == true) {
-            msg.delete();
+            msg.delete().catch(error => {
+              if (error.code !== 10008) {
+                console.log('delete error lol');
+                return; //do nothing
+              };
+            });
             const exampleEmbed = new MessageEmbed()
-            .setColor('#0099ff')
-            .setTitle('Image Filtering')
-            .addFields(
-              { name: 'Flagged Content:', value: attachment.proxyURL },
-              { name: 'User:', value: '<' + '@' + msg.author.id + '>', inline: true},
-              { name: 'ID:', value: msg.author.id, inline: true},
-              { name: 'ㅤ', value: 'ㅤ', inline: false},
-              { name: 'Profanity Found?', value: 'Profanity Present: ' + checkProfanity(profanity), inline: true},
-              { name: 'Processing Time:', value: totaltime + ' MS', inline: true},
-              { name: 'ㅤ', value: 'ㅤ', inline: false},
-              { name: 'Image Extension:', value: '.' + getExt(attachment.proxyURL), inline: true},
-              { name: 'Sent From:', value: '<' + '#' + sentChannel + '>', inline: true},
-            )
-            .setImage(attachment.proxyURL)
-            .setTimestamp()
-            bot.channels.cache.get(reportchannel).send({ embeds: [exampleEmbed] });  
-          }
-        }
-        // console.log(text);
-        sendmessage();
-      };
+              .setColor('#0099ff')
+              .setTitle('Image Filtering')
+              .addFields(
+                { name: 'Flagged Content:', value: attachment.proxyURL },
+                { name: 'User:', value: '<' + '@' + msg.author.id + '>', inline: true},
+                { name: 'ID:', value: msg.author.id, inline: true},
+                { name: 'ㅤ', value: 'ㅤ', inline: false},
+                { name: 'Profanity Found?', value: 'Profanity Present: ' + checkProfanity(profanity), inline: true},
+                { name: 'Processing Time:', value: totaltime + ' MS', inline: true},
+                { name: 'ㅤ', value: 'ㅤ', inline: false},
+                { name: 'Image Extension:', value: '.' + getExt(attachment.proxyURL), inline: true},
+                { name: 'Sent From:', value: '<' + '#' + msg.channel.id + '>', inline: true},
+              )
+              .setImage(attachment.proxyURL)
+              .setTimestamp()
+              bot.channels.cache.get(reportchannel).send({ embeds: [exampleEmbed] });  
+            };
+          };
+          try{
+            sendmessage()
+          } catch (error){
+            console.log("some error occured");
+          };
+        };
     });
   };
 });
+
 
 bot.login(process.env.TOKEN);
