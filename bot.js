@@ -1,6 +1,9 @@
 require("dotenv").config()
 const { Client, Intents } = require('discord.js');
 const Tesseract = require("tesseract.js"); // Initializing Tesseract, this module is essential for OCR
+const scheduler = createScheduler();
+const worker1 = createWorker();
+const worker2 = createWorker();
 const { MessageEmbed } = require('discord.js');
 const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 var regexn = /(n|N|m|M|j|J)(i|I|1|L|l|!)(g|G)\w+/;
