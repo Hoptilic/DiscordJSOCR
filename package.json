@@ -9,11 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "async": "^3.2.4",
     "discord-reply": "^0.1.2",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
     "events": "^3.3.0",
     "leo-profanity": "^1.5.1",
+    "scheduler": "^0.23.0",
     "tesseract.js": "^2.1.5"
   },
   "description": ""
