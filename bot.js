@@ -19,6 +19,7 @@ bot.on('ready', () => {
 });
 
 bot.on("message", (msg) => {
+  if(msg.channelId == '994544037635817542') return;
   if(msg.author.bot) return;
   if (msg.content == '!status'){
     msg.reply('Functioning Properly');
@@ -27,6 +28,7 @@ bot.on("message", (msg) => {
 
 bot.on("message", (msg) => {
   if(msg.author.bot) return;
+  if(msg.channelId == '994544037635817542') return;
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
       function randomChoice(arr) {
