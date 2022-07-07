@@ -31,7 +31,7 @@ bot.on("message", (msg) => {
       function getExt(filepath){
         return filepath.split("?")[0].split("#")[0].split('.').pop();
       }
-      if (["png", "jpg", "jpeg"].indexOf(getExt(attachment.proxyURL)) !== -1){
+      if (["png", "jpg", "jpeg", 'gif'].indexOf(getExt(attachment.proxyURL)) !== -1){
         console.log(getExt(attachment.proxyURL));
         var ImageURL = attachment.proxyURL;
         const options =  { 
