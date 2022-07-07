@@ -1,6 +1,6 @@
 require("dotenv").config()
 const { Client, Intents } = require('discord.js');
-const Tesseract = require("tesseract.js"); // Initializing Tesseract, this module is essential for OCR
+const Tesseract = require("tesseract.js");
 const { MessageEmbed } = require('discord.js');
 const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 var regexn = /(n|N|m|M|j|J)(i|I|1|L|l|!)(g|G)\w+/;
@@ -19,7 +19,6 @@ bot.on("message", (msg) => {
   }
 });
 
-
 bot.on("message", (msg) => {
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
@@ -31,25 +30,22 @@ bot.on("message", (msg) => {
         console.log(getExt(attachment.proxyURL));
         var ImageURL = attachment.proxyURL;
         var start = Date.now();
-        Tesseract.recognize(
-          ImageURL,
-          "eng",
-          { logger: (m) => console.log(m) }
-        ).then(({ data: { text } }) => {
 
-        var end = Date.now();
-        var totaltime = Math.floor((end-start) / 1000);
-        console.log(totaltime);
-        function checkProfanity(input){
-          let textInput = input.split(" ");
-          var checkNWord = textInput.some(e => regexn.test(e));
-          var checkFWord = textInput.some(el => regexf.test(el));
-          if (checkNWord || checkFWord == true){
-            return true;
-          } else {
-            return false;
+        Tesseract.recognize(ImageURL,"eng",{ logger: (m) => console.log(m) }).then(({ data: { text } }) => {
+
+          var end = Date.now();
+          var totaltime = Math.floor((end-start) / 1000);
+          console.log(totaltime);
+          function checkProfanity(input){
+            let textInput = input.split(" ");
+            var checkNWord = textInput.some(e => regexn.test(e));
+            var checkFWord = textInput.some(el => regexf.test(el));
+            if (checkNWord || checkFWord == true){
+              return true;
+            } else {
+              return false;
+            }
           }
-        }
           if (checkProfanity(text) == true) {
               const exampleEmbed = new MessageEmbed()
               .setColor('#0099ff')
@@ -69,7 +65,6 @@ bot.on("message", (msg) => {
               .setTimestamp()
               console.log(text);
               bot.channels.cache.get(reportchannel).send({ embeds: [exampleEmbed] });  
-
           }
           console.log(text);
           msg.delete();
