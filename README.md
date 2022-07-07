@@ -8,12 +8,13 @@ A bot that automatically detects & deletes set profanity in images.
 
 
 ## ⚙️ Requirements
-NodeJS 16.9.0
+NodeJS 16.9.0 (Minumum)<br/>
+NPM 8.0.0 (Minimum)
 
 
 ## 🎮 Usage
 Install the packages by doing *npm i*.<br/>
-Create a new file called *.env* and input the bot's token in it.<br/>
+Create a new file called *.env* and input the bot's token into it.<br/>
 Run the bot by doing *node bot.js*.
 
 
