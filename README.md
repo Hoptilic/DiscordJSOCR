@@ -12,8 +12,8 @@ NodeJS 16.9.0
 
 
 ## 🎮 Usage
-Install the packages by doing *npm i*.\n
-Create a new file called *.env* and input the bot's token in it.\n
+Install the packages by doing *npm i*.<br/>
+Create a new file called *.env* and input the bot's token in it.<br/>
 Run the bot by doing *node bot.js*.
 
 
