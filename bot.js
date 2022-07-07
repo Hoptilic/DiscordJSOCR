@@ -1,18 +1,18 @@
+// variables
 require("dotenv").config()
 const { Client, Intents } = require('discord.js');
 const Tesseract = require("tesseract.js");
 const ocrSpaceApi = require('ocr-space-api-alt2');
 const { MessageEmbed } = require('discord.js');
 const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
-let start = 0;
-let end = 0;
+let start = 1;
+let end = 2;
+let totaltime = 0;
 let profanity = '';
 var regexn = /(n|N|m|M|j|J)(i|I|1|L|l|!)(g|G)\w+/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
 var reportchannel = '994546580600397854';
 var sentChannel = '';
-
-
 
 bot.on('ready', () => {
   console.log(`Logged in as ${bot.user.tag}!`);
@@ -38,7 +38,8 @@ bot.on("message", (msg) => {
           apiKey: 'K81964690488957',
           verbose: false,
           url: ImageURL,
-          detectOrientation: true
+          detectOrientation: true,
+          scale: true
         }
         const getText = async () => {
           try {
@@ -46,25 +47,28 @@ bot.on("message", (msg) => {
             const result = await ocrSpaceApi(options);
             profanity = result;
             end = Date.now();
+            totaltime = parseFloat(end-start);
+            console.log(totaltime);
             return result;
           } catch (error) {
             console.error(error)
           }
         }
-
-
-        var totaltime = end-start;
-        console.log(totaltime);
         function checkProfanity(input){
-          console.log(input);
-          let textInput = input.toString().split(" ");
-          var checkNWord = textInput.some(e => regexn.test(e));
-          var checkFWord = textInput.some(el => regexf.test(el));
-          if (checkNWord || checkFWord == true){
-            return true;
-          } else {
-            return false;
+          try{
+            console.log(input);
+            let textInput = input.toString().split(" ");
+            var checkNWord = textInput.some(e => regexn.test(e));
+            var checkFWord = textInput.some(el => regexf.test(el));
+            if (checkNWord || checkFWord == true){
+              return true;
+            } else {
+              return false;
+            }
+          } catch(err) {
+            console.log('invalid input');
           }
+
         }
         async function sendmessage(){
           if (checkProfanity(await getText()) == true) {
@@ -86,6 +90,7 @@ bot.on("message", (msg) => {
             .setTimestamp()
             // console.log(text);
             bot.channels.cache.get(reportchannel).send({ embeds: [exampleEmbed] });  
+            msg.delete();
           }
         }
         // console.log(text);
