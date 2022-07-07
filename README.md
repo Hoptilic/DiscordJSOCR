@@ -21,7 +21,7 @@ Run the bot by doing *node bot.js*.
 
 ## 😋 Who cooked it?
 
-[![Hoptilic](https://s.gravatar.com/avatar/ec78ad01c1a8ce0b58e19136cb375e14?s=200)](https://vladysnetwork.ga "Hoptilic personal website")
+[![Hoptilic](https://s.gravatar.com/avatar/81733675922de184aeabb5cf104c8bbf?s=200)](https://vladysnetwork.ga "Hoptilic personal website")
 
 
 [![@hoptilic][twitter-image]](https://twitter.com/hoptilic) [![Hoptilic][github-image]](https://github.com/Hoptilic)
