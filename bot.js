@@ -10,7 +10,7 @@ let totaltime = 0;
 let profanitypresent = false;
 var regexn = /([n|N|m|M|j|J]+[i|I|1|L|l|!|h]+[g|G|q]+[^h])\w/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
-let reportchannel = '994546580600397854';
+let reportchannel = '994648347308732436';
 let apikeys = ['K81964690488957', 'K87892637488957'];
 
 function processcontent(client, imageurl, msg){
