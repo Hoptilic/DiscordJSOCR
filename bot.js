@@ -21,6 +21,7 @@ bot.on('ready', () => {
 bot.on("message", (msg) => {
   if(msg.channelId == '994544037635817542') return;
   if(msg.author.bot) return;
+  if(msg.author.id != '159930767533670400') return;
   if (msg.content == '!status'){
     msg.reply('Functioning Properly');
   }
