@@ -9,7 +9,7 @@ let end = 2;
 let totaltime = 0;
 let profanity = '';
 let profanitypresent = false;
-var regexn = /([n|N|m|M|j|J]+[i|I|1|L|l|!|h]+[g|G]+[^h])\w/;
+var regexn = /([n|N|m|M|j|J]+[i|I|1|L|l|!|h]+[g|G|q]+[^h])\w/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
 var reportchannel = '994648347308732436';
 var sentChannel = '';
@@ -67,6 +67,7 @@ bot.on("message", (msg) => {
         function checkProfanity(input){
           try{
             let trimmed = input.replace(/[\s|.|+|×|÷|=|/|_|#|%|^|*|(|)|-|'|:|;|,|?|`|~|<|>|{|}|°|•|○|●|□|■|♤|♡|◇|♧|☆|《|》|▪|¤|¡|¿]+/g, '');
+            console.log(input);
             console.log(trimmed);
             let textInput = trimmed.toString().split(" ");
             var checkNWord = textInput.some(e => regexn.test(e));
