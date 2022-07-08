@@ -8,7 +8,8 @@ let start = 1;
 let end = 2;
 let totaltime = 0;
 let profanity = '';
-var regexn = /([n|N|m|M|j|J]+[|i|I|1|L|l|!]+[|g|G])+/;
+let profanitypresent = false;
+var regexn = /([n|N|m|M|j|J]+[i|I|1|L|l|!|h]+[g|G]+[^h])\w/g;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
 var reportchannel = '994648347308732436';
 var sentChannel = '';
@@ -65,13 +66,14 @@ bot.on("message", (msg) => {
         };
         function checkProfanity(input){
           try{
-            let trimmed = input.replace(/[\s|.]+/g, '');
+            let trimmed = input.replace(/[\s|.|+|×|÷|=|/|_|#|%|^|*|(|)|-|'|:|;|,|?|`|~|<|>|{|}|°|•|○|●|□|■|♤|♡|◇|♧|☆|《|》|▪|¤|¡|¿]+/g, '');
             console.log(input);
             console.log(trimmed);
             let textInput = trimmed.toString().split(" ");
             var checkNWord = textInput.some(e => regexn.test(e));
             var checkFWord = textInput.some(el => regexf.test(el));
             if (checkNWord || checkFWord == true){
+              profanityprofanitypresent = true;
               return true;
             } else {
               return false;
@@ -96,7 +98,7 @@ bot.on("message", (msg) => {
                 { name: 'User:', value: '<' + '@' + msg.author.id + '>', inline: true},
                 { name: 'ID:', value: msg.author.id, inline: true},
                 { name: 'ㅤ', value: 'ㅤ', inline: false},
-                { name: 'Profanity Found?', value: 'Profanity Present: ' + checkProfanity(profanity), inline: true},
+                { name: 'Profanity Found?', value: 'Profanity Present: ' + profanitypresent, inline: true},
                 { name: 'Processing Time:', value: totaltime + ' MS', inline: true},
                 { name: 'ㅤ', value: 'ㅤ', inline: false},
                 { name: 'Image Extension:', value: '.' + getExt(attachment.proxyURL), inline: true},
