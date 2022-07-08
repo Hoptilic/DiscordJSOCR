@@ -14,6 +14,8 @@ NPM 8.0.0 (Minimum)
 
 ## 🎮 Usage
 Install the packages by doing *npm i*.<br/>
+Register an api key on **[OCRSpace](https://ocr.space)**<br/>
+Place your API key in the *apikeys* variable in the bot.js file.<br/>
 Create a new file called *.env* and input the bot's token into it.<br/>
 Run the bot by doing *node bot.js*.
 
