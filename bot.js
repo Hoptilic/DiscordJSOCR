@@ -73,7 +73,7 @@ bot.on("message", (msg) => {
             var checkNWord = textInput.some(e => regexn.test(e));
             var checkFWord = textInput.some(el => regexf.test(el));
             if (checkNWord || checkFWord == true){
-              profanityprofanitypresent = true;
+              profanitypresent = true;
               return true;
             } else {
               return false;
