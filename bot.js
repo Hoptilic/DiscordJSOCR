@@ -1,5 +1,5 @@
 // variables
-require("dotenv").config()
+require("dotenv").config();
 const { Client, Intents } = require('discord.js');
 const ocrSpaceApi = require('ocr-space-api-alt2');
 const { MessageEmbed } = require('discord.js');
@@ -7,15 +7,13 @@ const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESS
 let start = 1;
 let end = 2;
 let totaltime = 0;
-let profanity = '';
 let profanitypresent = false;
 var regexn = /([n|N|m|M|j|J]+[i|I|1|L|l|!|h]+[g|G|q]+[^h])\w/;
 var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
 let reportchannel = '994546580600397854';
-var sentChannel = '';
 let apikeys = ['K81964690488957', 'K87892637488957'];
 
-function process(client, imageurl, msg){
+function processcontent(client, imageurl, msg){
   function randomChoice(arr) {
     return arr[Math.floor(arr.length * Math.random())];
   };
@@ -38,7 +36,6 @@ function process(client, imageurl, msg){
       try {
         start = Date.now();
         const result = await ocrSpaceApi(options);
-        profanity = result;
         end = Date.now();
         totaltime = parseFloat(end-start);
         console.log(totaltime);
@@ -98,7 +95,7 @@ function process(client, imageurl, msg){
         console.log("some error occured");
       };
     };
-}
+};
 
 bot.on('ready', () => {
   console.log(`Logged in as ${bot.user.tag}!`);
@@ -118,7 +115,7 @@ bot.on("message", (msg) => {
     var matches = msg.content.match(/\bhttps?:\/\/\S+/gi);
     let ImageURL = msg.content;
     console.log(matches);
-    process(bot, matches.toString(), msg);
+    processcontent(bot, matches.toString(), msg);
   }
 });
 
@@ -127,10 +124,10 @@ bot.on("message", (msg) => {
   if(msg.channelId == '994544037635817542') return;
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
-      process(bot, attachment.proxyURL, msg);
+      processcontent(bot, attachment.proxyURL, msg);
     });
   };
 });
 
 
-bot.login('NTQ2MzM0MzYzMzA3MjEyODEw.GiLF0n.GsvCHS5QKBFNBohv9rOUNgJCaabdpohb71OLCw');
+bot.login(process.env.TOKEN);
