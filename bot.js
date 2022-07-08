@@ -111,6 +111,7 @@ bot.on("message", (msg) => {
 });
 
 bot.on("message", (msg) => {
+  if(msg.author.bot) return;
   if(msg.content.includes("https://cdn.discordapp.com") || msg.content.includes("https://media.discordapp.net")){
     var matches = msg.content.match(/\bhttps?:\/\/\S+/gi);
     let ImageURL = msg.content;
