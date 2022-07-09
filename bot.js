@@ -169,4 +169,12 @@ bot.on('message', (msg) => {
   };
 });
 
+bot.user.setPresence({
+  status: 'online',
+  activity: {
+    name: 'MemeX',
+    type: 'WATCHING'
+  }
+});
+
 bot.login(process.env.TOKEN1);
