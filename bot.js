@@ -186,7 +186,7 @@ bot.on('message', (msg) => {
   if(msg.channelId == '994544037635817542') return;
   if (msg.attachments.size > 0) {
     msg.attachments.forEach((attachment) => {
-      processcontent(bot, attachment.proxyURL, msg);
+      processcontent(bot, attachment.url, msg);
     });
   };
 });
