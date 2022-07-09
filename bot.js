@@ -179,11 +179,4 @@ bot.on('message', (msg) => {
   };
 });
 
-bot.user.setPresence({
-  status: 'online',
-  activity: {
-
-  }
-});
-
 bot.login(process.env.TOKEN1);
