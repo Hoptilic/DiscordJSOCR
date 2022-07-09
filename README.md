@@ -3,6 +3,8 @@
 
 ### *DiscordJS OCR*
 
+## This bot is in active duty on the [MemeX](https://discord.gg/memex) discord server, and is made that way. This project will require tinkering in order to work for your specific needs.
+
 ## 📄 Description
 A bot that automatically detects & deletes set profanity in images.
 
