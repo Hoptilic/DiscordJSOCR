@@ -1,8 +1,10 @@
 // variables
 require("dotenv").config();
-const { Client, Intents } = require('discord.js');
+const { Client, Collection, Intents } = require('discord.js');
 const ocrSpaceApi = require('ocr-space-api-alt2');
 const { MessageEmbed } = require('discord.js');
+const fs = require('node:fs');
+const path = require('node:path');
 const bot = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_WEBHOOKS],
   presence: {
@@ -14,6 +16,7 @@ const bot = new Client({
     }],
   },
 });
+bot.commands = new Collection();
 let start = 1;
 let end = 2;
 let totaltime = 0;
@@ -23,6 +26,15 @@ var regexf = /(f|F)(a|A|4|@)(g|G)\w+/;
 let reportchannel = '994648347308732436';
 let apikeys = ['K81964690488957', 'K87892637488957'];
 let Whitelisted = ['394019914157129728', '204255221017214977', '416358583220043796', '651095740390834176', '282859044593598464', '839383598306033674', '159985870458322944', '499595256270946326', '155149108183695360', '497196352866877441', '235148962103951360', '536991182035746816', '172002275412279296', '993672510082129971', '559047562494083073', '159930767533670400'];
+
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	bot.commands.set(command.data.name, command);
+}
 
 function processcontent(client, imageurl, msg){
   function randomChoice(arr) {
@@ -177,6 +189,21 @@ bot.on('message', (msg) => {
       processcontent(bot, attachment.proxyURL, msg);
     });
   };
+});
+
+bot.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+
+	const command = bot.commands.get(interaction.commandName);
+
+	if (!command) return;
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
 bot.login(process.env.TOKEN1);

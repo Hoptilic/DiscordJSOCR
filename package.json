@@ -6,18 +6,20 @@
     "start": "node bot.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Hoptilic",
+  "license": "GPL",
   "dependencies": {
+    "@discordjs/builders": "^0.15.0",
+    "@discordjs/rest": "^0.5.0",
+    "discord-api-types": "^0.36.1",
     "discord-reply": "^0.1.2",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
     "events": "^3.3.0",
+    "fs": "^0.0.1-security",
     "json": "^11.0.0",
-    "leo-profanity": "^1.5.1",
     "ocr-space-api-alt2": "^2.0.1",
-    "ocr-space-api-wrapper": "^2.1.1",
-    "tesseract.js": "^2.1.5"
+    "path": "^0.12.7"
   },
-  "description": ""
+  "description": "A bot that automatically detects & deletes set profanity in images."
 }

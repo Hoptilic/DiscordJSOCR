@@ -14,9 +14,12 @@ NPM 8.0.0 (Minimum)
 
 ## 🎮 Usage
 Install the packages by doing *npm i*.<br/>
+Unzip the included zip file called *node_modules.zip* and hit "Replace all files" if prompted.<br/>
 Register an api key on **[OCRSpace](https://ocr.space)**<br/>
 Place your API key in the *apikeys* variable in the bot.js file.<br/>
-Create a new file called *.env* and input the bot's token into it.<br/>
+Create a new file called *.env* and create two variables, *TOKEN1* and *TOKEN2*. Input your bot's token into the *TOKEN1* variable.<br/>
+Place your bot's client id, as well as the guild and it's token into config.json<br/>
+Register commands by doing *node deploy-commands.js*<br/>
 Run the bot by doing *node bot.js*.
 
 
