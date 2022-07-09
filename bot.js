@@ -3,7 +3,17 @@ require("dotenv").config();
 const { Client, Intents } = require('discord.js');
 const ocrSpaceApi = require('ocr-space-api-alt2');
 const { MessageEmbed } = require('discord.js');
-const bot = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_WEBHOOKS]});
+const bot = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_WEBHOOKS],
+  presence: {
+    status: 'online',
+    afk: false,
+    activities: [{
+      name: 'MemeX',
+      type: 'WATCHING',
+    }],
+  },
+});
 let start = 1;
 let end = 2;
 let totaltime = 0;
@@ -172,8 +182,7 @@ bot.on('message', (msg) => {
 bot.user.setPresence({
   status: 'online',
   activity: {
-    name: 'MemeX',
-    type: 'WATCHING'
+
   }
 });
 
